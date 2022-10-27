@@ -39,17 +39,6 @@ def createTicks(coords, place):
         canvas.create_line(coords[0] - 5, coords[1], coords[0] + 5, coords[1], tags='ticks')
 
 
-# Work on area finding, turn string into operable nump integrand
-def findArea():
-    pass
-    canvas.delete('area')
-    result = integrate.quad(functionEntry.get())
-    canvas.create_text(CANVASSIZE * 0.3, CANVASSIZE * 0.3, tags='area')
-
-
-areaButton = tk.Button(text='Find area', command=findArea)
-
-
 def drawScaleMark(coords, x, place):
     coords = translateToCanvas(coords)
     if place == 'x':
@@ -109,6 +98,16 @@ def placeLabels():
              resolutionEntry, displayButton, area1Label, lim1Entry, area2Label, lim2Entry, areaButton]
     for i, thing in enumerate(array):
         thing.place(x=485, y=i * 25)
+
+
+# WIP - have to create text box for area output, convert string function into operand operable by scipy
+def findArea():
+    canvas.delete('area')
+    result = integrate.quad(functionEntry.get(), float(lim1Entry.get()), float(lim2Entry.get()))
+    canvas.create_text(CANVASSIZE * 0.3, CANVASSIZE * 0.3, tags='area')
+
+
+areaButton = tk.Button(text='Find area', command=findArea)
 
 
 def createWindow():
